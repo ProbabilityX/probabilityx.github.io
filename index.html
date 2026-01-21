@@ -475,15 +475,28 @@
             });
 
             // Form submission
-            const contactForm = document.querySelector('form');
+            const contactForm = document.querySelector('#contactForm');
             if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    
-                    // Show success message
-                    alert("Thank you for your inquiry. We will respond within 48 hours.");
-                    this.reset();
-                });
-            }
+
+                contactForm.addEventListener('submit', async function (e) {
+
+                    e.preventDefault();
+
+                    const formData = new FormData(contactForm);
+                    try {
+                        const res = await fetch(contactForm.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: { 'Accept': 'application/json' }
+                        });
+            if (res.ok) {
+                alert("Thank you for your inquiry. We will respond within 48 hours.");
+                contactForm.reset();
+            } else {
+                const data = await res.json().catch(() => ({}));
+                alert(data?.error || "Submission failed. Please try again.");}
+                    } catch (err) {alert("Network error. Please try again.");}});
+}
 
             // Mobile menu toggle
             const mobileMenuButton = document.querySelector('button.md\\:hidden');
