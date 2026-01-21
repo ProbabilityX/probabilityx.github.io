@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probabilityχ | Scientific Consulting | Quantitative Biology</title>
+    <meta name="description" content="Data science, quantitative biology, statistics, ML and AI for reproducible research. Analysis and automation for academic and R&D environments.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#0a192f',
+                        'off-white': '#f8f9fa',
+                        'light-gray': '#e9ecef',
+                        'neon-blue': '#00d4ff',
+                        'neon-blue-dark': '#00a8cc',
+                        'accent-gray': '#2d3748'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s ease-in-out infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'grid-pulse': 'gridPulse 8s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        gridPulse: {
+                            '0%, 100%': { opacity: 0.1 },
+                            '50%': { opacity: 0.3 }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .hero-underline {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: underlinePulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes underlinePulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .grid-background {
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        .hover-glow:hover {
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+        
+        .neon-border {
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        .neon-border:hover {
+            border-color: rgba(0, 212, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.1);
+        }
+        
+        .abstract-shape {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), transparent);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-navy text-off-white font-sans overflow-x-hidden">
+    <!-- Interactive Background Elements -->
+    <div class="fixed inset-0 grid-background pointer-events-none animate-grid-pulse"></div>
+    <div class="fixed top-1/4 left-1/4 w-64 h-64 abstract-shape opacity-10 animate-float pointer-events-none"></div>
+    <div class="fixed bottom-1/4 right-1/4 w-96 h-96 abstract-shape opacity-5 animate-float pointer-events-none" style="animation-delay: 2s;"></div>
+    
+    <!-- Navigation -->
+    <header class="relative z-10">
+        <nav class="container mx-auto px-6 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl font-semibold tracking-tight">Probability<span class="text-neon-blue">χ</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#expertise" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Expertise</a>
+                    <a href="#process" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Process</a>
+                    <a href="#testimonials" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Testimonials</a>
+                    <a href="#contact" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Contact</a>
+                </div>
+                <button class="md:hidden text-gray-300 hover:text-neon-blue">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="relative z-10">
+        <!-- Hero Section -->
+        <section class="container mx-auto px-6 py-20 md:py-32">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-light leading-tight mb-6">
+                    <span class="hero-underline">Data science, statistics, ML and AI for reproducible research</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
+                    Analysis and automation for academic and R&D environments
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="px-8 py-4 bg-neon-blue text-navy font-medium rounded-none hover:bg-neon-blue-dark transition-colors duration-300 hover-glow">
+                        Scientific collaboration
+                    </button>
+                    <button class="px-8 py-4 neon-border text-neon-blue font-medium rounded-none hover:bg-neon-blue hover:text-navy transition-all duration-300">
+                        Contact Probabilityχ
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- What We Do -->
+        <section class="container mx-auto px-6 py-20">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-light mb-12 text-center">What Probabilityχ does</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="p-6 neon-border hover-glow transition-all duration-300">
+                        <div class="text-neon-blue mb-4">
+                            <i class="fas fa-chart-line text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-medium mb-3">Quantitative analysis</h3>
+                        <p class="text-gray-300">Advanced statistical methods for biological data interpretation and hypothesis testing.</p>
+                    </div>
+                    <div class="p-6 neon-border hover-glow transition-all duration-300">
+                        <div class="text-neon-blue mb-4">
+                            <i class="fas fa-microscope text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-medium mb-3">Automated image analysis</h3>
+                        <p class="text-gray-300">Custom pipelines for microscopy, segmentation, detection, and high-content screening.</p>
+                    </div>
+                    <div class="p-6 neon-border hover-glow transition-all duration-300">
+                        <div class="text-neon-blue mb-4">
+                            <i class="fas fa-project-diagram text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-medium mb-3">Statistical modeling</h3>
+                        <p class="text-gray-300">Bayesian inference, mixed models, and advanced data visualization for complex datasets.</p>
+                    </div>
+                    <div class="p-6 neon-border hover-glow transition-all duration-300">
+                        <div class="text-neon-blue mb-4">
+                            <i class="fas fa-code-branch text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-medium mb-3">Reproducible pipelines</h3>
+                        <p class="text-gray-300">Version-controlled, documented workflows ready for publication and peer review.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How We Work -->
+        <section id="process" class="container mx-auto px-6 py-20 bg-accent-gray/30">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-light mb-12 text-center">How Probabilityχ works</h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="text-neon-blue text-2xl">01</div>
+                            <div>
+                                <h3 class="text-xl font-medium mb-2">Structured collaborations</h3>
+                                <p class="text-gray-300">Clear project scoping, milestones, and deliverables tailored to your research timeline.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="text-neon-blue text-2xl">02</div>
+                            <div>
+                                <h3 class="text-xl font-medium mb-2">Reproducibility focus</h3>
+                                <p class="text-gray-300">All analyses include complete documentation, code, and data management plans.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="text-neon-blue text-2xl">03</div>
+                            <div>
+                                <h3 class="text-xl font-medium mb-2">Team integration</h3>
+                                <p class="text-gray-300">Close collaboration with your scientific team throughout the analysis process.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="text-neon-blue text-2xl">04</div>
+                            <div>
+                                <h3 class="text-xl font-medium mb-2">Publication-ready outputs</h3>
+                                <p class="text-gray-300">Results formatted for journals, including figures, statistics, and methods sections.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected Expertise -->
+<section id="expertise" class="container mx-auto px-6 py-20">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-light mb-12 text-center">Selected expertise</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="p-8 neon-border">
+                        <h3 class="text-xl font-medium mb-4 text-neon-blue">Image analysis & computer vision</h3>
+                        <p class="text-gray-300 mb-4">Custom algorithms for microscopy, medical imaging, and high-throughput visual data analysis.</p>
+                        <ul class="space-y-2 text-gray-300">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-neon-blue mr-2 text-sm"></i>
+                                Object detection and tracking
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-neon-blue mr-2 text-sm"></i>
+                                Feature extraction and quantification
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-neon-blue mr-2 text-sm"></i>
+                                Deep learning-based classification
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="p-8 neon-border">
+                        <h3 class="text-xl font-medium mb-4 text-neon-blue">Statistics & experimental design</h3>
+                        <p class="text-gray-300 mb-4">Power analysis, randomization, and appropriate statistical tests for scientific experiments.</p>
+                        <ul class="space-y-2 text-gray-300">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-neon-blue mr-2 text-sm"></i>
+                                Bayesian hierarchical modeling
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-neon-blue mr-2 text-sm"></i>
+                                Mixed-effects regression
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-neon-blue mr-2 text-sm"></i>
+                                Multiple testing correction
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="p-8 neon-border">
+                        <h3 class="text-xl font-medium mb-4 text-neon-blue">Machine learning & AI</h3>
+                        <p class="text-gray-300 mb-4">Deep learning for classification, prediction, and pattern discovery in complex datasets.</p>
+                        <ul class="space-y-2 text-gray-300">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-neon-blue mr-2 text-sm"></i>
+                                Neural network architectures
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-neon-blue mr-2 text-sm"></i>
+                                Transfer learning applications
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-neon-blue mr-2 text-sm"></i>
+                                Explainable AI for validation
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="p-8 neon-border">
+                        <h3 class="text-xl font-medium mb-4 text-neon-blue">Data integration & modeling</h3>
+                        <p class="text-gray-300 mb-4">Integration of multi-modal data sources for comprehensive systems analysis.</p>
+                        <ul class="space-y-2 text-gray-300">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-neon-blue mr-2 text-sm"></i>
+                                Dimensionality reduction
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-neon-blue mr-2 text-sm"></i>
+                                Network analysis
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-neon-blue mr-2 text-sm"></i>
+                                Stochastic simulation
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Proof of Credibility -->
+        <section class="container mx-auto px-6 py-20 bg-accent-gray/30">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-light mb-12 text-center">Proof of credibility</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="text-center p-6">
+                        <div class="text-neon-blue text-4xl font-light mb-4">PhD</div>
+                        <h3 class="text-lg font-medium mb-2">Scientific expertise</h3>
+                        <p class="text-gray-300 text-sm">Doctorate-level training in quantitative methods and computational analysis.</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <div class="text-neon-blue text-4xl font-light mb-4">5+</div>
+                        <h3 class="text-lg font-medium mb-2">Years experience</h3>
+                        <p class="text-gray-300 text-sm">Across academic institutes (CNRS, Stanford) and applied research environments.</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <div class="text-neon-blue text-4xl font-light mb-4">Open</div>
+                        <h3 class="text-lg font-medium mb-2">Source tools</h3>
+                        <p class="text-gray-300 text-sm">Contributions to scientific Python/R ecosystem and custom analysis packages.</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <div class="text-neon-blue text-4xl font-light mb-4">Peer</div>
+                        <h3 class="text-lg font-medium mb-2">Reviewed work</h3>
+                        <p class="text-gray-300 text-sm">Published research and validated methodologies in scientific journals.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section id="testimonials" class="container mx-auto px-6 py-20">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-light mb-12 text-center">Testimonials</h2>
+                <div class="space-y-8">
+                    <div class="p-8 neon-border">
+                        <p class="text-gray-300 italic mb-6">"The statistical rigor and reproducible code pipeline allowed us to publish in a high-impact journal with confidence. The analysis approach transformed how we process our imaging data."</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full mr-4 flex items-center justify-center avatar-gradient text-white font-semibold">
+                                SC
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Research Team Leader</h4>
+                                <p class="text-gray-400 text-sm"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8 neon-border">
+                        <p class="text-gray-300 italic mb-6">"The machine learning approach developed for our high-throughput screening data identified patterns we had completely missed with conventional analysis methods."</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full mr-4 flex items-center justify-center text-white font-semibold" style="background: linear-gradient(135deg, #10B981, #0a192f);">
+                                MW
+                            </div>
+                            <div>
+                                <h4 class="font-medium">R&D Director</h4>
+                                <p class="text-gray-400 text-sm"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact CTA -->
+        <section id="contact" class="container mx-auto px-6 py-20">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-light mb-6">Discuss your project</h2>
+                <p class="text-gray-300 mb-12 max-w-2xl mx-auto">
+                    Contact Probabilityχ to discuss quantitative analysis, image processing, or statistical design for your research.
+                </p>
+                <div class="space-y-6">
+                    <a href="mailto:contact.probability@gmail.com" class="inline-block text-neon-blue text-xl hover:text-neon-blue-dark transition-colors duration-300">
+                        contact.probability@gmail.com
+                    </a>
+                     <div class="pt-8 border-t border-gray-800">
+                        <form id="contactForm" action="https://formspree.io/f/mzddkwev" method="POST" class="max-w-md mx-auto space-y-4">
+                            <label><input type="email" name="email" placeholder="Your email" required class="w-full px-4 py-3 bg-transparent border border-gray-700 text-white placeholder-gray-500 focus:border-neon-blue focus:outline-none transition-colors duration-300"></label>
+                            <label><textarea name="message" placeholder="Brief project description" rows="4" required class="w-full px-4 py-3 bg-transparent border border-gray-700 text-white placeholder-gray-500 focus:border-neon-blue focus:outline-none transition-colors duration-300"></textarea></label>
+                            <button type="submit" class="w-full px-8 py-3 bg-neon-blue text-navy font-medium hover:bg-neon-blue-dark transition-colors duration-300">
+                                Send inquiry
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="relative z-10 border-t border-gray-800 mt-20">
+        <div class="container mx-auto px-6 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <span class="text-2xl font-semibold">Probability<span class="text-neon-blue">χ</span></span>
+                    <p class="text-gray-400 text-sm mt-2">Scientific consulting | Quantitative biology</p>
+                </div>
+                <div class="text-gray-400 text-sm">
+                    <p>© 2026 Probabilityχ. All rights reserved.</p>
+                    <p class="mt-2">Data science, statistics, and AI for reproducible research.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Define navigation items
+        const navItems = [
+            { "id": 1, "label": "Expertise", "href": "#expertise" },
+            { "id": 2, "label": "Process", "href": "#process" },
+            { "id": 3, "label": "Testimonials", "href": "#testimonials" },
+            { "id": 4, "label": "Contact", "href": "#contact" }
+        ];
+
+        // Define expertise areas
+        const expertiseAreas = [
+            {
+                "title": "Microscopy image analysis",
+                "description": "Custom algorithms for live-cell imaging, super-resolution, and high-content screening data.",
+                "items": [
+                    "Cell segmentation and tracking",
+                    "Colocalization and intensity analysis",
+                    "Machine learning-based classification"
+                ]
+            },
+            {
+                "title": "Statistics & experimental design",
+                "description": "Power analysis, randomization, and appropriate statistical tests for biological experiments.",
+                "items": [
+                    "Bayesian hierarchical modeling",
+                    "Mixed-effects regression",
+                    "Multiple testing correction"
+                ]
+            },
+            {
+                "title": "Machine learning & computer vision",
+                "description": "Deep learning for image classification, object detection, and feature extraction.",
+                "items": [
+                    "Convolutional neural networks",
+                    "Transfer learning for biological data",
+                    "Explainable AI for scientific validation"
+                ]
+            },
+            {
+                "title": "Multi-omics & data integration",
+                "description": "Integration of transcriptomic, proteomic, and imaging data for systems biology.",
+                "items": [
+                    "Dimensionality reduction",
+                    "Network analysis",
+                    "Pathway enrichment"
+                ]
+            }
+        ];
+
+        // Smooth scrolling for navigation links
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Form submission
+            const contactForm = document.querySelector('form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Show success message
+                    alert("Thank you for your inquiry. We will respond within 48 hours.");
+                    this.reset();
+                });
+            }
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.querySelector('button.md\\:hidden');
+            const navMenu = document.querySelector('.hidden.md\\:flex');
+            
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', function() {
+                    navMenu.classList.toggle('hidden');
+                    navMenu.classList.toggle('flex');
+                    navMenu.classList.toggle('flex-col');
+                    navMenu.classList.toggle('absolute');
+                    navMenu.classList.toggle('top-full');
+                    navMenu.classList.toggle('left-0');
+                    navMenu.classList.toggle('right-0');
+                    navMenu.classList.toggle('bg-navy');
+                    navMenu.classList.toggle('p-6');
+                    navMenu.classList.toggle('space-y-4');
+                    navMenu.classList.toggle('border-t');
+                    navMenu.classList.toggle('border-gray-800');
+                });
+            }
+
+            // CTA button actions
+            const ctaButtons = document.querySelectorAll('button');
+            ctaButtons.forEach(button => {
+                if (button.textContent.includes('Scientific collaboration') || 
+                    button.textContent.includes('Contact Probabilityχ')) {
+                    button.addEventListener('click', function() {
+                        document.querySelector('#contact').scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    });
+                }
+            });
+        });
+
+        // Interactive background effect
+        document.addEventListener('mousemove', function(e) {
+            const grid = document.querySelector('.grid-background');
+            if (grid) {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                grid.style.backgroundPosition = `${x * 20}px ${y * 20}px`;
+            }
+        });
+    </script>
+</body>
+</html>
