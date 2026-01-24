@@ -569,9 +569,10 @@ if (projectsGrid) {
                 alt="${p.title} screenshot ${i + 1}"
                 class="w-full aspect-[16/9] object-cover transition-transform duration-500 ease-out hover:scale-110 cursor-zoom-in"
                 loading="lazy"
+                onclick="openImageModal(this.src)"
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-navy/70 via-transparent to-transparent"></div>
-              <figcaption class="absolute bottom-0 left-0 right-0 px-4 py-3 text-sm text-off-white">
+              <div class="absolute inset-0 bg-gradient-to-t from-navy/70 via-transparent to-transparent pointer-events-none"></div>
+              <figcaption class="absolute bottom-0 left-0 right-0 px-4 py-3 text-sm text-off-white pointer-events-none">
                 <span class="text-gray-300">${p.title}</span>
                 <span class="text-gray-500"> — ${i + 1}/${p.images.length}</span>
               </figcaption>
@@ -679,7 +680,41 @@ if (projectsGrid) {
             });
         });
 
+function openImageModal(src) {
+  const modal = document.getElementById('imageModal');
+  const img = document.getElementById('modalImg');
+  if (!modal || !img) return;
+
+  img.src = src;
+  modal.classList.remove('hidden');
+}
+
+function closeImageModal() {
+  const modal = document.getElementById('imageModal');
+  if (!modal) return;
+  modal.classList.add('hidden');
+}
+
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.id === 'imageModal') closeImageModal();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeImageModal();
+});
+
+
+document.addEventListener('click', (e) => {
+  if (e.target && (e.target.id === 'imageModal' || e.target.id === 'modalImg')) closeImageModal();
+});
+
+
     </script>
+
+    <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black/90 flex items-center justify-center p-6">
+        <img id="modalImg" class="max-w-[95vw] max-h-[95vh] object-contain cursor-zoom-out" />
+    </div>
+
 </body>
 
 <!--      <div class="flex flex-col sm:flex-row gap-3">
