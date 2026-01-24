@@ -109,11 +109,11 @@
     <!-- Navigation -->
     <header class="relative z-10">
         <nav class="container mx-auto px-6 py-6">
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center relative">
                 <div class="flex items-center space-x-2">
                     <span class="text-2xl font-semibold tracking-tight">Probability<span class="text-neon-blue">χ</span></span>
                 </div>
-                <div class="hidden md:flex space-x-8">
+                <div id="navMenu" class="hidden md:flex space-x-8">
                     <a href="#expertise" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Expertise</a>
                     <a href="#process" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Process</a>
                     <!--<a href="#testimonials" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Testimonials</a>-->
@@ -647,24 +647,46 @@ if (projectsGrid) {
 
             // Mobile menu toggle
             const mobileMenuButton = document.querySelector('button.md\\:hidden');
-            const navMenu = document.querySelector('.hidden.md\\:flex');
-            
-            if (mobileMenuButton) {
-                mobileMenuButton.addEventListener('click', function() {
-                    navMenu.classList.toggle('hidden');
-                    navMenu.classList.toggle('flex');
-                    navMenu.classList.toggle('flex-col');
-                    navMenu.classList.toggle('absolute');
-                    navMenu.classList.toggle('top-full');
-                    navMenu.classList.toggle('left-0');
-                    navMenu.classList.toggle('right-0');
-                    navMenu.classList.toggle('bg-navy');
-                    navMenu.classList.toggle('p-6');
-                    navMenu.classList.toggle('space-y-4');
-                    navMenu.classList.toggle('border-t');
-                    navMenu.classList.toggle('border-gray-800');
+            const navMenu = document.getElementById('navMenu');
+
+            if (mobileMenuButton && navMenu) {
+              mobileMenuButton.addEventListener('click', () => {
+                const isOpen = !navMenu.classList.contains('hidden');
+
+                if (isOpen) {
+                  // close
+                  navMenu.classList.add('hidden');
+                  navMenu.classList.remove(
+                    'flex','flex-col','absolute','top-full','left-0','right-0',
+                    'bg-navy','p-6','space-y-4','border-t','border-gray-800','z-50'
+                  );
+                  navMenu.classList.add('space-x-8'); // restore desktop spacing
+                } else {
+                  // open
+                  navMenu.classList.remove('hidden');
+                  navMenu.classList.add(
+                    'flex','flex-col','absolute','top-full','left-0','right-0',
+                    'bg-navy','p-6','space-y-4','border-t','border-gray-800','z-50'
+                  );
+                  navMenu.classList.remove('space-x-8'); // remove horizontal spacing on mobile
+                }
+              });
+
+              // close menu when a link is clicked (mobile UX)
+              navMenu.querySelectorAll('a[href^="#"]').forEach(a => {
+                a.addEventListener('click', () => {
+                  if (window.innerWidth < 768) {
+                    navMenu.classList.add('hidden');
+                    navMenu.classList.remove(
+                      'flex','flex-col','absolute','top-full','left-0','right-0',
+                      'bg-navy','p-6','space-y-4','border-t','border-gray-800','z-50'
+                    );
+                    navMenu.classList.add('space-x-8');
+                  }
                 });
+              });
             }
+
 
             // CTA button actions
             const ctaButtons = document.querySelectorAll('button');
