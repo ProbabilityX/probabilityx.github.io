@@ -44,6 +44,9 @@
         }
     </script>
     <style>
+        /* hide scrollbar */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         body {
             font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
             -webkit-font-smoothing: antialiased;
@@ -113,7 +116,8 @@
                 <div class="hidden md:flex space-x-8">
                     <a href="#expertise" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Expertise</a>
                     <a href="#process" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Process</a>
-                    <a href="#testimonials" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Testimonials</a>
+                    <!--<a href="#testimonials" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Testimonials</a>-->
+                    <a href="#projects" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Projects</a>
                     <a href="#contact" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Contact</a>
                 </div>
                 <button class="md:hidden text-gray-300 hover:text-neon-blue">
@@ -137,9 +141,9 @@
                     <button class="px-8 py-4 bg-neon-blue text-navy font-medium rounded-none hover:bg-neon-blue-dark transition-colors duration-300 hover-glow">
                         Scientific collaboration
                     </button>
-                    <button class="px-8 py-4 neon-border text-neon-blue font-medium rounded-none hover:bg-neon-blue hover:text-navy transition-all duration-300">
+                    <!--<button class="px-8 py-4 neon-border text-neon-blue font-medium rounded-none hover:bg-neon-blue hover:text-navy transition-all duration-300">
                         Contact Probabilityχ
-                    </button>
+                    </button>-->
                 </div>
             </div>
         </section>
@@ -303,8 +307,8 @@
             </div>
         </section>
 
-        <!-- Proof of Credibility -->
-        <section class="container mx-auto px-6 py-20 bg-accent-gray/30">
+<!-- Proof of Credibility -->
+<section class="container mx-auto px-6 py-20 bg-accent-gray/30">
             <div class="max-w-6xl mx-auto">
                 <h2 class="text-3xl font-light mb-12 text-center">Proof of credibility</h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -332,8 +336,8 @@
             </div>
         </section>
 
-        <!-- Testimonials -->
-        <section id="testimonials" class="container mx-auto px-6 py-20">
+<!-- Testimonials 
+<section id="testimonials" class="container mx-auto px-6 py-20">
             <div class="max-w-4xl mx-auto">
                 <h2 class="text-3xl font-light mb-12 text-center">Testimonials</h2>
                 <div class="space-y-8">
@@ -363,26 +367,41 @@
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Contact CTA -->
-        <section id="contact" class="container mx-auto px-6 py-20">
-            <div class="max-w-3xl mx-auto text-center">
-                <h2 class="text-3xl font-light mb-6">Discuss your project</h2>
-                <p class="text-gray-300 mb-12 max-w-2xl mx-auto">
-                    Contact Probabilityχ to discuss quantitative analysis, image processing, or statistical design for your research.
-                </p>
-                        <form id="contactForm" action="https://formspree.io/f/mzddkwev" method="POST" class="max-w-md mx-auto space-y-4">
-                            <label><input type="email" name="email" placeholder="Your email" required class="w-full px-4 py-3 bg-transparent border border-gray-700 text-white placeholder-gray-500 focus:border-neon-blue focus:outline-none transition-colors duration-300"></label>
-                            <label><textarea name="message" placeholder="Brief project description" rows="4" required class="w-full px-4 py-3 bg-transparent border border-gray-700 text-white placeholder-gray-500 focus:border-neon-blue focus:outline-none transition-colors duration-300"></textarea></label>
-                            <button type="submit" class="w-full px-8 py-3 bg-neon-blue text-navy font-medium hover:bg-neon-blue-dark transition-colors duration-300">
-                                Send inquiry
-                            </button>
-                        </form>
-                    </div>
-                </div>
+        </section> 
+        -->
+<!-- Projects -->
+<section id="projects" class="container mx-auto px-6 py-20">
+    <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-light mb-4 text-center">Projects</h2>
+        <p class="text-gray-300 mb-12 max-w-3xl mx-auto text-center">
+            Selected open-source and reproducible research tools, from microscopy automation to stochastic modeling and cancer genomics analysis.
+        </p>
+        <div id="projectsGrid" class="grid md:grid-cols-2 gap-8"></div>
+        <!--<div class="text-center mt-10">
+            <a href="https://github.com/joeydufourd?tab=repositories"
+        class="inline-block px-8 py-4 neon-border text-neon-blue font-medium rounded-none hover:bg-neon-blue hover:text-navy transition-all duration-300">
+        View all repositories on GitHub
+            </a>
+        </div>-->
+    </div></section>
+<!-- Contact CTA -->
+<section id="contact" class="container mx-auto px-6 py-20">
+    <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-light mb-6">Discuss your project</h2>
+        <p class="text-gray-300 mb-12 max-w-2xl mx-auto">
+            Contact Probabilityχ to discuss quantitative analysis, image processing, or statistical design for your research.
+        </p>
+                <form id="contactForm" action="https://formspree.io/f/mzddkwev" method="POST" class="max-w-md mx-auto space-y-4">
+                    <label><input type="email" name="email" placeholder="Your email" required class="w-full px-4 py-3 bg-transparent border border-gray-700 text-white placeholder-gray-500 focus:border-neon-blue focus:outline-none transition-colors duration-300"></label>
+                    <label><textarea name="message" placeholder="Brief project description" rows="4" required class="w-full px-4 py-3 bg-transparent border border-gray-700 text-white placeholder-gray-500 focus:border-neon-blue focus:outline-none transition-colors duration-300"></textarea></label>
+                    <button type="submit" class="w-full px-8 py-3 bg-neon-blue text-navy font-medium hover:bg-neon-blue-dark transition-colors duration-300">
+                        Send inquiry
+                    </button>
+                </form>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
     </main>
 
     <footer class="relative z-10 border-t border-gray-800 mt-20">
@@ -405,7 +424,7 @@
         const navItems = [
             { "id": 1, "label": "Expertise", "href": "#expertise" },
             { "id": 2, "label": "Process", "href": "#process" },
-            { "id": 3, "label": "Testimonials", "href": "#testimonials" },
+            { "id": 3, "label": "Projects", "href": "#projects" },
             { "id": 4, "label": "Contact", "href": "#contact" }
         ];
 
@@ -418,7 +437,7 @@
                     "Cell segmentation and tracking",
                     "Colocalization and intensity analysis",
                     "Machine learning-based classification"
-                ]
+                ],
             },
             {
                 "title": "Statistics & experimental design",
@@ -427,7 +446,7 @@
                     "Bayesian hierarchical modeling",
                     "Mixed-effects regression",
                     "Multiple testing correction"
-                ]
+                ],
             },
             {
                 "title": "Machine learning & computer vision",
@@ -436,7 +455,7 @@
                     "Convolutional neural networks",
                     "Transfer learning for biological data",
                     "Explainable AI for scientific validation"
-                ]
+                ],
             },
             {
                 "title": "Multi-omics & data integration",
@@ -445,9 +464,141 @@
                     "Dimensionality reduction",
                     "Network analysis",
                     "Pathway enrichment"
-                ]
+                ],
             }
         ];
+
+// Define projects
+        const projects = [
+              {
+            title: "loopvision",
+            description: "Pipeline for generating synthetic microscopy data and training YOLO models under severe class imbalance.",
+            tags: ["Computer Vision", "Microscopy", "DeepLearning"],
+            tech: "Python",
+            //repo: null,
+            images: [
+              "assets/projects/loopvision/1.png",
+              "assets/projects/loopvision/2.png",
+              "assets/projects/loopvision/3.jpg",
+              "assets/projects/loopvision/4.jpg",
+              "assets/projects/loopvision/5.png"
+            ],
+          },
+          {
+            title: "FIJI-Macros",
+            description: "A collection of custom FIJI (ImageJ) macros for automating image analysis workflows in microscopy.",
+            tags: ["Microscopy", "Automation", "ImageJ/FIJI"],
+            tech: "ImageJ Macro",
+            //repo: "https://github.com/joeydufourd/FIJI-Macros",
+            images: [
+                "assets/projects/FIJI/1.jpg"
+            ],
+          },
+          {
+            title: "telomere-dynamics-gillespie",
+            description: "Gillespie-based stochastic model simulating telomere state transitions with visualization of population dynamics over many simulated cells.",
+            tags: ["Stochastic simulation", "Systems biology", "Reproducible modeling"],
+            tech: "Python",
+            //repo: "https://github.com/joeydufourd/telomere-dynamics-gillespie",
+            images: [
+                "assets/projects/gillespie/1.png",
+                "assets/projects/gillespie/2.png",
+                "assets/projects/gillespie/3.png"
+            ],
+          },
+          {
+            title: "TELS1-and-cancer",
+            description: "Reproducible RMarkdown analysis of TCGA sarcoma data (TELS1/TRF2/ATRX/DAXX, …) to explore cancer-relevant signals.",
+            tags: ["Cancer genomics", "TCGA", "Reproducible analysis"],
+            tech: "R / RMarkdown",
+            //repo: "https://github.com/joeydufourd/TELS1-and-cancer",
+            images: [
+                "assets/projects/TELS1/1.png",
+                "assets/projects/TELS1/2.png",
+                "assets/projects/TELS1/3.png",
+                "assets/projects/TELS1/4.png",
+                "assets/projects/TELS1/5.png",
+                "assets/projects/TELS1/6.png"
+            ],
+          },
+        ];
+
+// Render Projects section
+const projectsGrid = document.querySelector('#projectsGrid');
+
+if (projectsGrid) {
+  projectsGrid.innerHTML = projects.map(p => `
+    <div class="p-8 neon-border hover-glow transition-all duration-300">
+
+
+    
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h3 class="text-xl font-medium mb-2 text-neon-blue">${p.title}</h3>
+          <p class="text-gray-300 mb-4">${p.description}</p>
+        </div>
+        <div class="text-xs text-gray-400 whitespace-nowrap mt-1">${p.tech || ''}</div>
+      </div>
+
+      <div class="flex flex-wrap gap-2 mb-6">
+        ${(p.tags || []).map(t => `
+          <span class="text-xs px-2 py-1 border border-gray-700 text-gray-300">${t}</span>
+        `).join('')}
+      </div>
+
+      ${p.images?.length ? `
+  <div class="mt-6">
+    <div class="relative">
+      <!-- left arrow -->
+      <button
+        type="button"
+        aria-label="Previous"
+        class="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 flex items-center justify-center neon-border bg-navy/80 text-neon-blue hover:bg-neon-blue hover:text-navy transition-all"
+        onclick="this.nextElementSibling.scrollBy({ left: -320, behavior: 'smooth' })"
+      >
+        <i class="fas fa-chevron-left text-sm"></i>
+      </button>
+
+      <!-- track -->
+      <div class="no-scrollbar flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-pb-2 px-12">
+        ${p.images.map((src, i) => `
+          <figure class="snap-start shrink-0 w-80 neon-border hover-glow transition-all overflow-hidden">
+            <div class="relative">
+              <img
+                src="${src}"
+                alt="${p.title} screenshot ${i + 1}"
+                class="w-full aspect-[16/9] object-cover transition-transform duration-500 ease-out hover:scale-110 cursor-zoom-in"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-navy/70 via-transparent to-transparent"></div>
+              <figcaption class="absolute bottom-0 left-0 right-0 px-4 py-3 text-sm text-off-white">
+                <span class="text-gray-300">${p.title}</span>
+                <span class="text-gray-500"> — ${i + 1}/${p.images.length}</span>
+              </figcaption>
+            </div>
+          </figure>
+        `).join('')}
+      </div>
+
+      <!-- right arrow -->
+      <button
+        type="button"
+        aria-label="Next"
+        class="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 flex items-center justify-center neon-border bg-navy/80 text-neon-blue hover:bg-neon-blue hover:text-navy transition-all"
+        onclick="this.previousElementSibling.scrollBy({ left: 320, behavior: 'smooth' })"
+      >
+        <i class="fas fa-chevron-right text-sm"></i>
+      </button>
+    </div>
+
+    <p class="text-xs text-gray-400 mt-3">Swipe / scroll.</p>
+  </div>
+` : ``}
+
+
+    </div>
+  `).join('');
+}
 
         // Smooth scrolling for navigation links
         document.addEventListener('DOMContentLoaded', function() {
@@ -528,15 +679,18 @@
             });
         });
 
-        // Interactive background effect
-        document.addEventListener('mousemove', function(e) {
-            const grid = document.querySelector('.grid-background');
-            if (grid) {
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;
-                grid.style.backgroundPosition = `${x * 20}px ${y * 20}px`;
-            }
-        });
     </script>
 </body>
+
+<!--      <div class="flex flex-col sm:flex-row gap-3">
+        ${p.repo ? `
+          <a href="${p.repo}" target="_blank" rel="noopener"
+             class="px-6 py-3 bg-neon-blue text-navy font-medium rounded-none hover:bg-neon-blue-dark transition-colors duration-300 text-center">
+            GitHub repo
+          </a>
+        ` : `<button disabled
+             class="px-6 py-3 border border-gray-800 text-gray-500 font-medium rounded-none cursor-not-allowed text-center">
+            GitHub repo
+          </button>`}
+      </div>-->
 </html>
