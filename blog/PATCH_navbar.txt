@@ -1,0 +1,18 @@
+# Patch — ajouter le lien Blog dans ta navbar existante (index.html)
+
+Dans ton index.html actuel, trouve la ligne de navigation qui ressemble à :
+
+    <a href="#expertise">Expertise</a>
+    <a href="#process">Process</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+
+Et ajoute le lien Blog juste avant Contact :
+
+    <a href="#expertise">Expertise</a>
+    <a href="#process">Process</a>
+    <a href="#projects">Projects</a>
+    <a href="blog/index.html">Blog</a>
+    <a href="#contact">Contact</a>
+
+C'est tout. Le reste est déjà dans les fichiers blog/.

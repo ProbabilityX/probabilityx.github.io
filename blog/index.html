@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base target="_self">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Probabilityχ | Scientific Consulting</title>
+  <meta name="description" content="Practical statistical guidance for biologists: experimental design, reproducibility, data visualization, and common mistakes in scientific papers.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'navy': '#0a192f',
+            'off-white': '#f8f9fa',
+            'light-gray': '#e9ecef',
+            'neon-blue': '#00d4ff',
+            'neon-blue-dark': '#00a8cc',
+            'accent-gray': '#2d3748'
+          },
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+          },
+          animation: {
+            'grid-pulse': 'gridPulse 8s ease-in-out infinite',
+            'float': 'float 6s ease-in-out infinite'
+          },
+          keyframes: {
+            gridPulse: {
+              '0%, 100%': { opacity: 0.1 },
+              '50%': { opacity: 0.3 }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-20px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .grid-background {
+      background-image:
+        linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    .hover-glow:hover {
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+    }
+    .neon-border {
+      border: 1px solid rgba(0, 212, 255, 0.3);
+    }
+    .neon-border:hover {
+      border-color: rgba(0, 212, 255, 0.8);
+      box-shadow: 0 0 15px rgba(0, 212, 255, 0.1);
+    }
+    .abstract-shape {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), transparent);
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+    .card-left-bar {
+      position: relative;
+      overflow: hidden;
+    }
+    .card-left-bar::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: #00d4ff;
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.25s ease;
+    }
+    .card-left-bar:hover::before {
+      transform: scaleY(1);
+    }
+    .pulse-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #00d4ff;
+      animation: pulseDot 2s infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-navy text-off-white font-sans overflow-x-hidden">
+
+  <!-- Background -->
+  <div class="fixed inset-0 grid-background pointer-events-none animate-grid-pulse"></div>
+  <div class="fixed top-1/4 left-1/4 w-64 h-64 abstract-shape opacity-10 animate-float pointer-events-none"></div>
+
+  <!-- Nav -->
+  <header class="relative z-50 bg-navy">
+    <nav class="container mx-auto px-6 py-6">
+      <div class="flex justify-between items-center">
+        <a href="/index.html" class="flex items-center space-x-2">
+          <span class="text-2xl font-semibold tracking-tight">Probability<span class="text-neon-blue">χ</span></span>
+        </a>
+        <div class="hidden md:flex space-x-8">
+          <a href="/index.html#expertise" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Expertise</a>
+          <a href="/index.html#process" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Process</a>
+          <a href="/index.html#projects" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Projects</a>
+          <a href="/index.html#contact" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Contact</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="relative z-10">
+
+    <!-- Hero -->
+    <section class="container mx-auto px-6 py-20 md:py-28">
+      <div class="max-w-4xl mx-auto">
+        <p class="text-neon-blue font-mono text-sm tracking-widest uppercase mb-4">// Technical insights</p>
+        <h1 class="text-4xl md:text-6xl font-light leading-tight mb-6">
+          From data to <span class="text-neon-blue">understanding</span>
+        </h1>
+        <p class="text-xl text-gray-300 max-w-2xl">
+          Practical notes on statistics, experimental design, visualization and reproducible research — written for biologists and researchers working with complex data.
+        </p>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="container mx-auto px-6 pb-8">
+      <div class="max-w-4xl mx-auto flex gap-3 flex-wrap">
+        <button onclick="filterPosts('all', this)" class="filter-btn px-4 py-2 text-sm border border-neon-blue text-neon-blue hover-glow transition-all duration-300 active-filter">All</button>
+        <button onclick="filterPosts('stats', this)" class="filter-btn px-4 py-2 text-sm border border-gray-700 text-gray-300 hover:border-neon-blue hover:text-neon-blue transition-all duration-300">Statistics</button>
+        <button onclick="filterPosts('design', this)" class="filter-btn px-4 py-2 text-sm border border-gray-700 text-gray-300 hover:border-neon-blue hover:text-neon-blue transition-all duration-300">Experimental Design</button>
+        <button onclick="filterPosts('visualization', this)" class="filter-btn px-4 py-2 text-sm border border-gray-700 text-gray-300 hover:border-neon-blue hover:text-neon-blue transition-all duration-300">Data Visualization</button>
+        <button onclick="filterPosts('rnaseq', this)" class="filter-btn px-4 py-2 text-sm border border-gray-700 text-gray-300 hover:border-neon-blue hover:text-neon-blue transition-all duration-300">RNAseq</button>
+        <button onclick="filterPosts('singlecell', this)" class="filter-btn px-4 py-2 text-sm border border-gray-700 text-gray-300 hover:border-neon-blue hover:text-neon-blue transition-all duration-300">Single-cell</button>
+        <button onclick="filterPosts('reproducibility', this)" class="filter-btn px-4 py-2 text-sm border border-gray-700 text-gray-300 hover:border-neon-blue hover:text-neon-blue transition-all duration-300">Reproducibility</button>
+      </div>
+    </section>
+
+    <!-- Posts -->
+    <section class="container mx-auto px-6 pb-32">
+      <div class="max-w-4xl mx-auto space-y-6" id="posts-container">
+
+        <!-- FEATURED -->
+        <a href="statistical_mistakes_article.html" class="block p-8 neon-border hover-glow card-left-bar transition-all duration-300 bg-accent-gray/10" data-tags="stats design reproducibility">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="pulse-dot"></span>
+            <span class="text-neon-blue text-xs font-mono tracking-widest uppercase">Latest post</span>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs px-2 py-1 border border-neon-blue/40 text-neon-blue">Statistics</span>
+            <span class="text-xs px-2 py-1 border border-neon-blue/40 text-neon-blue">Scientific Publishing</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">May 2026</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">8 min read</span>
+          </div>
+          <h2 class="text-2xl font-light mb-3 group-hover:text-neon-blue transition-colors">
+            The 5 statistical mistakes that quietly ruin scientific papers
+          </h2>
+          <p class="text-gray-300 mb-4 max-w-2xl">
+            Pseudoreplication, p-hacking, correlation versus causation, violated assumptions and misleading p-values: five mistakes that continue to undermine scientific conclusions.
+          </p>
+          <span class="text-neon-blue text-sm font-mono">Read article →</span>
+        </a>
+
+        <!-- UPCOMING ARTICLES -->
+        <div class="mt-16 mb-8">
+          <h2 class="text-2xl font-light text-gray-300">Upcoming articles</h2>
+          <p class="text-gray-500 mt-2">Topics currently in production for the blog and YouTube channel.</p>
+        </div>
+
+        <div class="p-8 neon-border opacity-70 cursor-not-allowed" data-tags="stats visualization">
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Statistics</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Data Visualization</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Coming soon</span>
+          </div>
+          <h2 class="text-xl font-light mb-2 text-gray-300">Your bar graphs are lying to you — here's why</h2>
+          <p class="text-gray-400 text-sm">Means ± SEM can hide the most important information in your data. What to show instead.</p>
+        </div>
+
+        <div class="p-8 neon-border opacity-70 cursor-not-allowed" data-tags="stats rnaseq visualization">
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Statistics</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">RNAseq</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Coming soon</span>
+          </div>
+          <h2 class="text-xl font-light mb-2 text-gray-300">How to read a volcano plot without fooling yourself</h2>
+          <p class="text-gray-400 text-sm">Effect size, significance and the traps hidden in differential expression figures.</p>
+        </div>
+
+        <div class="p-8 neon-border opacity-70 cursor-not-allowed" data-tags="stats">
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Statistics</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Coming soon</span>
+          </div>
+          <h2 class="text-xl font-light mb-2 text-gray-300">What a confidence interval actually means</h2>
+          <p class="text-gray-400 text-sm">One of the most misunderstood concepts in all of statistics.</p>
+        </div>
+
+        <div class="p-8 neon-border opacity-70 cursor-not-allowed" data-tags="singlecell stats visualization">
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Single-cell</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Statistics</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Coming soon</span>
+          </div>
+          <h2 class="text-xl font-light mb-2 text-gray-300">Your UMAP is lying to you</h2>
+          <p class="text-gray-400 text-sm">Why clusters appear, disappear and move depending on arbitrary choices.</p>
+        </div>
+
+        <div class="p-8 neon-border opacity-70 cursor-not-allowed" data-tags="design stats">
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Experimental Design</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Statistics</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Coming soon</span>
+          </div>
+          <h2 class="text-xl font-light mb-2 text-gray-300">Experimental design mistakes to avoid before collecting data</h2>
+          <p class="text-gray-400 text-sm">The most expensive statistical errors happen before the experiment even starts.</p>
+        </div>
+
+        <div class="p-8 neon-border opacity-70 cursor-not-allowed" data-tags="stats rnaseq reproducibility">
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Statistics</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Reproducibility</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Coming soon</span>
+          </div>
+          <h2 class="text-xl font-light mb-2 text-gray-300">Batch effects: the invisible problem that invalidates your analysis</h2>
+          <p class="text-gray-400 text-sm">How technical variation masquerades as biology and silently drives false discoveries.</p>
+        </div>
+
+        <div class="p-8 neon-border opacity-70 cursor-not-allowed" data-tags="stats">
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Statistics</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Coming soon</span>
+          </div>
+          <h2 class="text-xl font-light mb-2 text-gray-300">Bayesian vs frequentist statistics: which should biologists use?</h2>
+          <p class="text-gray-400 text-sm">A practical comparison without the philosophical wars.</p>
+        </div>
+
+        <div class="p-8 neon-border opacity-70 cursor-not-allowed" data-tags="stats design">
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Statistics</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Experimental Design</span>
+            <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Coming soon</span>
+          </div>
+          <h2 class="text-xl font-light mb-2 text-gray-300">How to choose the right statistical test</h2>
+          <p class="text-gray-400 text-sm">A decision framework that goes beyond the usual flowcharts.</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="relative z-10 border-t border-gray-800">
+    <div class="container mx-auto px-6 py-12">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <span class="text-2xl font-semibold">Probability<span class="text-neon-blue">χ</span></span>
+          <p class="text-gray-400 text-sm mt-2">Scientific consulting | Quantitative biology</p>
+        </div>
+        <div class="text-gray-400 text-sm text-right">
+          <a href="/index.html" class="hover:text-neon-blue transition-colors">← Back to main site</a>
+          <p class="mt-2">© 2026 Probabilityχ. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function filterPosts(tag, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('border-neon-blue', 'text-neon-blue', 'active-filter');
+        b.classList.add('border-gray-700', 'text-gray-300');
+      });
+      btn.classList.remove('border-gray-700', 'text-gray-300');
+      btn.classList.add('border-neon-blue', 'text-neon-blue');
+
+      document.querySelectorAll('[data-tags]').forEach(card => {
+        if (tag === 'all') {
+          card.style.display = '';
+        } else {
+          card.style.display = (card.dataset.tags || '').includes(tag) ? '' : 'none';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

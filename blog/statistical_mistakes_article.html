@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base target="_self">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The 5 statistical mistakes that quietly ruin scientific papers — Probabilityχ</title>
+  <meta name="description" content="Five common statistical mistakes that can undermine scientific papers: pseudoreplication, multiple testing, correlation versus causation, violated test assumptions, and confusing statistical with biological significance.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'navy': '#0a192f',
+            'navy-light': '#112240',
+            'off-white': '#f8f9fa',
+            'neon-blue': '#00d4ff',
+            'neon-blue-dark': '#00a8cc',
+            'accent-gray': '#2d3748'
+          },
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+            'mono': ['JetBrains Mono', 'monospace']
+          },
+          animation: {
+            'grid-pulse': 'gridPulse 8s ease-in-out infinite'
+          },
+          keyframes: {
+            gridPulse: {
+              '0%, 100%': { opacity: 0.1 },
+              '50%': { opacity: 0.3 }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+      -webkit-font-smoothing: antialiased;
+    }
+    .grid-background {
+      background-image:
+        linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    .neon-border { border: 1px solid rgba(0, 212, 255, 0.3); }
+    .neon-border:hover {
+      border-color: rgba(0, 212, 255, 0.8);
+      box-shadow: 0 0 15px rgba(0, 212, 255, 0.1);
+    }
+    .hover-glow:hover { box-shadow: 0 0 20px rgba(0, 212, 255, 0.2); }
+
+    .prose-article h2 {
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: #f8f9fa;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .prose-article h2 .step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: #00d4ff;
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      padding: 0.15rem 0.5rem;
+      letter-spacing: 0.05em;
+    }
+    .prose-article h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #00d4ff;
+      margin-top: 1.75rem;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.04em;
+    }
+    .prose-article p {
+      color: #cbd5e0;
+      margin-bottom: 1.25rem;
+      line-height: 1.8;
+    }
+    .prose-article strong { color: #f8f9fa; font-weight: 500; }
+    .prose-article em { color: #e2e8f0; }
+    .prose-article ul {
+      margin: 0.75rem 0 1.25rem 1.5rem;
+      color: #cbd5e0;
+    }
+    .prose-article li { margin-bottom: 0.4rem; }
+    .prose-article code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82em;
+      color: #00d4ff;
+      background: rgba(0, 212, 255, 0.08);
+      padding: 0.1em 0.4em;
+      border-radius: 2px;
+    }
+    .code-block {
+      background: #0d1b2e;
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+      position: relative;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.75;
+    }
+    .code-block .lang-tag {
+      position: absolute;
+      top: 0.5rem; right: 0.75rem;
+      font-size: 0.65rem;
+      color: rgba(0, 212, 255, 0.5);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .code-block pre { color: #a8d8a8; white-space: pre; }
+    .code-block .cm { color: #556070; }
+    .code-block .fn { color: #00d4ff; }
+    .code-block .st { color: #f0c060; }
+    .callout {
+      border-left: 2px solid rgba(0, 212, 255, 0.6);
+      background: rgba(0, 212, 255, 0.04);
+      padding: 1.1rem 1.5rem;
+      margin: 1.75rem 0;
+    }
+    .callout-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: #00d4ff;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .callout p { margin: 0; font-size: 0.9rem; }
+    .callout.warn { border-left-color: rgba(251, 146, 60, 0.7); background: rgba(251, 146, 60, 0.04); }
+    .callout.warn .callout-label { color: #fb923c; }
+    .video-placeholder {
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(17, 34, 64, 0.8));
+      aspect-ratio: 16 / 9;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-navy text-off-white font-sans overflow-x-hidden">
+
+  <div class="fixed inset-0 grid-background pointer-events-none animate-grid-pulse"></div>
+
+  <header class="relative z-50 bg-navy">
+    <nav class="container mx-auto px-6 py-6">
+      <div class="flex justify-between items-center">
+        <a href="../index.html">
+          <span class="text-2xl font-semibold tracking-tight">Probability<span class="text-neon-blue">χ</span></span>
+        </a>
+        <div class="hidden md:flex space-x-8">
+          <a href="/index.html#expertise" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Expertise</a>
+          <a href="/index.html#process" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Process</a>
+          <a href="/index.html#projects" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Projects</a>
+          <a href="index.html" class="text-neon-blue transition-colors duration-300">Blog</a>
+          <a href="/index.html#contact" class="text-gray-300 hover:text-neon-blue transition-colors duration-300">Contact</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="relative z-10">
+    <article class="container mx-auto px-6 py-16 max-w-3xl">
+
+      <header class="mb-12 pb-10 border-b border-gray-800">
+        <div class="flex items-center gap-2 mb-4 text-gray-500 text-sm font-mono">
+          <a href="index.html" class="hover:text-neon-blue transition-colors">Blog</a>
+          <span>/</span>
+          <span>Statistics · Reproducibility</span>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="text-xs px-2 py-1 border border-neon-blue/40 text-neon-blue">Statistics</span>
+          <span class="text-xs px-2 py-1 border border-neon-blue/40 text-neon-blue">Experimental design</span>
+          <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Peer review</span>
+          <span class="text-xs px-2 py-1 border border-gray-700 text-gray-400">Reproducibility</span>
+        </div>
+
+        <h1 class="text-3xl md:text-5xl font-light leading-tight mb-6">
+          The 5 statistical mistakes that quietly ruin
+          <span class="text-neon-blue">scientific papers</span>
+        </h1>
+
+        <div class="flex gap-6 text-sm font-mono text-gray-500">
+          <span>Probabilityχ</span>
+          <span>May 2026</span>
+          <span>8 min read</span>
+        </div>
+
+        <div class="mt-8 pl-5 border-l-2 border-neon-blue/60">
+          <p class="text-gray-300 italic text-lg leading-relaxed">
+            Most problematic statistical analyses are not caused by fraud. They come from small methodological decisions made early in the project — and those decisions can completely change the interpretation of a scientific result.
+          </p>
+        </div>
+      </header>
+
+      <section class="mb-12">
+        <a href="YOUTUBE_LINK_PLACEHOLDER" target="_blank" rel="noopener" class="video-placeholder flex flex-col items-center justify-center text-center p-8 hover-glow transition-all duration-300 group">
+          <i class="fas fa-play-circle text-neon-blue text-5xl mb-4 group-hover:scale-110 transition-transform duration-300"></i>
+          <p class="text-off-white text-xl font-light mb-2">Watch the full video</p>
+          <p class="text-gray-400 text-sm font-mono">YOUTUBE_LINK_PLACEHOLDER</p>
+        </a>
+      </section>
+
+      <div class="prose-article">
+
+        <p>
+          Every year, scientific papers are corrected, criticized after publication, or sometimes retracted. In many cases, the core issue is not misconduct. It is something more ordinary: a statistical error that should have been addressed before submission.
+        </p>
+
+        <p>
+          Below are five mistakes I repeatedly encounter in biological, medical, omics, and imaging studies. They are common, subtle, and often serious enough to undermine an otherwise well-designed project.
+        </p>
+
+        <h2><span class="step-num">01</span> Pseudoreplication: when your N is not your N</h2>
+
+        <p>
+          Imagine you have data from three mice. From each mouse, you measure one hundred cells. You now have three hundred measurements.
+        </p>
+
+        <p>
+          The temptation is obvious: run a statistical test using <code>N = 300</code>. The problem is that these three hundred cells are not independent observations. Cells from the same animal share the same biological context, history, genotype, environment, and experimental handling.
+        </p>
+
+        <p>
+          In that situation, your effective biological sample size is closer to three than to three hundred. Treating all cells as independent artificially inflates statistical power and can produce extremely convincing p-values for effects that may not replicate.
+        </p>
+
+        <div class="callout warn">
+          <div class="callout-label">Common mistake</div>
+          <p class="text-gray-300">If you measured 300 cells from 3 animals, your biological N is usually 3, not 300 (unless your model explicitly accounts for the nesting structure (mixed models, pseudobulk approaches, etc.).</p>
+        </div>
+
+        <p>
+          A more appropriate strategy is often to use a hierarchical or mixed-effects model, where the experimental unit is explicitly represented.
+        </p>
+
+        <div class="code-block">
+          <span class="lang-tag">R</span>
+          <pre><span class="cm"># Linear mixed model with a random intercept for animal</span>
+<span class="fn">lmer</span>(value ~ group + (1 | animal))</pre>
+        </div>
+
+        <p>
+          In plain language: the model estimates the effect of the group while accounting for the fact that several measurements come from the same animal.
+        </p>
+
+        <div class="callout">
+          <div class="callout-label">Probabilityχ note</div>
+          <p class="text-gray-300">If you are unsure whether your experimental design suffers from pseudoreplication, this is exactly the type of issue we investigate at Probabilityχ. A design review often takes less than an hour and can prevent major problems later during peer review.</p>
+        </div>
+
+        <h2><span class="step-num">02</span> Multiple testing and p-hacking</h2>
+
+        <p>
+          The more hypotheses you test, the more likely you are to obtain statistically significant results purely by chance.
+        </p>
+
+        <p>
+          This is particularly important in RNAseq, proteomics, metabolomics, high-content screening, biomarker discovery, and any analysis where hundreds or thousands of comparisons are performed at once.
+        </p>
+
+        <p>
+          With a significance threshold of <code>p &lt; 0.05</code>, testing 1,000 independent null hypotheses would produce around 50 significant results by chance alone. Without correction, a results table can look biologically meaningful while being dominated by false positives.
+        </p>
+
+        <p>
+          This is why multiple-testing corrections exist, including Bonferroni, Holm, and Benjamini-Hochberg false discovery rate control.
+        </p>
+
+        <div class="neon-border p-6 mt-2 mb-8">
+          <p class="text-neon-blue font-mono text-xs tracking-widest uppercase mb-4">Common correction strategies</p>
+          <ul class="space-y-2 text-gray-300 text-sm">
+            <li class="flex items-start gap-2"><i class="fas fa-check text-neon-blue mt-1 text-xs"></i> Bonferroni correction for strict family-wise error control</li>
+            <li class="flex items-start gap-2"><i class="fas fa-check text-neon-blue mt-1 text-xs"></i> Holm correction as a less conservative stepwise alternative</li>
+            <li class="flex items-start gap-2"><i class="fas fa-check text-neon-blue mt-1 text-xs"></i> Benjamini-Hochberg FDR for high-dimensional omics analyses</li>
+          </ul>
+        </div>
+
+        <p>
+          P-hacking emerges when researchers try multiple analysis strategies and report only the significant ones. It is not always intentional. Sometimes it is simply the result of exploring many reasonable options without documenting the full analytical path.
+        </p>
+
+        <div class="callout">
+          <div class="callout-label">Probabilityχ note</div>
+          <p class="text-gray-300">Choosing the correct correction depends heavily on your experimental design and data structure. One of the most common reviewer criticisms we encounter concerns inappropriate handling of multiple testing. Reviewing the Methods section before submission is often much easier than responding to statistical concerns after rejection.</p>
+        </div>
+
+        <h2><span class="step-num">03</span> Correlation is not causation</h2>
+
+        <p>
+          Two variables can move together without one causing the other. This sounds obvious, yet many papers still move from association to causal language too quickly.
+        </p>
+
+        <p>
+          For example, observing that a gene is associated with poor survival does not prove that this gene drives poor survival. It may be a marker of another biological process, a proxy for disease severity, or a consequence rather than a cause.
+        </p>
+
+        <p>
+          This problem is especially common in observational cohorts, transcriptomic studies, biomarker discovery, and machine-learning models trained on biological or clinical datasets.
+        </p>
+
+        <div class="callout warn">
+          <div class="callout-label">Reviewer trigger</div>
+          <p class="text-gray-300">Words such as “drives”, “causes”, “regulates”, or “mediates” require stronger evidence than a correlation coefficient or a survival association.</p>
+        </div>
+
+        <p>
+          Establishing causality generally requires stronger designs, such as intervention experiments, randomized designs, perturbation studies, Mendelian randomization, or explicit causal assumptions formalized through frameworks such as directed acyclic graphs.
+        </p>
+
+        <div class="callout">
+          <div class="callout-label">Probabilityχ note</div>
+          <p class="text-gray-300">This is often where reviewers become particularly critical. If you are working with observational cohorts, transcriptomics, or biomarker studies and are unsure whether your interpretation overreaches the data, an external methodological review can be extremely valuable before submission.</p>
+        </div>
+
+        <h2><span class="step-num">04</span> Violating test assumptions</h2>
+
+        <p>
+          A statistical test is only valid under the assumptions that justify it. Many analyses go directly from data to p-value without checking whether those assumptions are even approximately satisfied.
+        </p>
+
+        <p>
+          Common problems include non-normal distributions, unequal variances, repeated measurements treated as independent, small sample sizes, zero-inflated count data, censored survival data, and strong outliers.
+        </p>
+
+        <p>
+          The result may look statistically significant while being statistically invalid.
+        </p>
+
+        <div class="neon-border p-6 mt-2 mb-8">
+          <p class="text-neon-blue font-mono text-xs tracking-widest uppercase mb-4">Before trusting the p-value</p>
+          <ul class="space-y-2 text-gray-300 text-sm">
+            <li class="flex items-start gap-2"><i class="fas fa-check text-neon-blue mt-1 text-xs"></i> Are observations independent?</li>
+            <li class="flex items-start gap-2"><i class="fas fa-check text-neon-blue mt-1 text-xs"></i> Is the distribution compatible with the model?</li>
+            <li class="flex items-start gap-2"><i class="fas fa-check text-neon-blue mt-1 text-xs"></i> Are variances comparable across groups?</li>
+            <li class="flex items-start gap-2"><i class="fas fa-check text-neon-blue mt-1 text-xs"></i> Are sample sizes sufficient for the chosen method?</li>
+            <li class="flex items-start gap-2"><i class="fas fa-check text-neon-blue mt-1 text-xs"></i> Are repeated or hierarchical measurements modeled correctly?</li>
+          </ul>
+        </div>
+
+        <p>
+          A sophisticated test applied to the wrong data structure remains the wrong analysis.
+        </p>
+
+        <div class="callout">
+          <div class="callout-label">Probabilityχ note</div>
+          <p class="text-gray-300">We are preparing a more detailed guide on statistical assumptions and model diagnostics for biological datasets. If you are dealing with hierarchical, longitudinal, count, ordinal, or survival data, additional checks are often required beyond standard workflows.</p>
+        </div>
+
+        <h2><span class="step-num">05</span> Statistical significance is not biological significance</h2>
+
+        <p>
+          A p-value tells you how compatible your data are with a null hypothesis. It does not tell you whether the observed effect matters biologically, clinically, or scientifically.
+        </p>
+
+        <p>
+          With sufficiently large sample sizes, very small effects can become highly significant. A 1% change in a biomarker may produce <code>p &lt; 0.000001</code> while remaining practically irrelevant.
+        </p>
+
+        <p>
+          This is why effect sizes, confidence intervals, uncertainty, and domain knowledge are essential. The key question is not only whether an effect is statistically detectable, but whether it is meaningful.
+        </p>
+
+        <div class="callout warn">
+          <div class="callout-label">Key distinction</div>
+          <p class="text-gray-300">“Statistically significant” does not mean “important”. It only means that the result is unlikely under a specific null model.</p>
+        </div>
+
+        <hr class="border-gray-800 my-10">
+
+        <h2><span class="step-num">06</span> The meta-lesson</h2>
+
+        <p>
+          Most statistical problems originate long before the analysis itself. They emerge from experimental design, sampling strategy, model selection, and interpretation.
+        </p>
+
+        <p>
+          Statistics should not be treated as the final administrative step of a project. It is part of the scientific process from the beginning.
+        </p>
+
+        <p>
+          Before believing a p-value, ask how it was obtained.
+        </p>
+
+        <div class="neon-border p-6 mt-2 mb-8">
+          <p class="text-neon-blue font-mono text-xs tracking-widest uppercase mb-4">Manuscript checklist</p>
+          <ul class="space-y-2 text-gray-300 text-sm">
+            <li class="flex items-start gap-2"><i class="fas fa-check text-neon-blue mt-1 text-xs"></i> Is the experimental unit clearly defined?</li>
+            <li class="flex items-start gap-2"><i class="fas fa-check text-neon-blue mt-1 text-xs"></i> Are technical and biological replicates separated?</li>
+            <li class="flex items-start gap-2"><i class="fas fa-check text-neon-blue mt-1 text-xs"></i> Are multiple comparisons corrected when needed?</li>
+            <li class="flex items-start gap-2"><i class="fas fa-check text-neon-blue mt-1 text-xs"></i> Are causal claims supported by causal evidence?</li>
+            <li class="flex items-start gap-2"><i class="fas fa-check text-neon-blue mt-1 text-xs"></i> Are model assumptions checked and reported?</li>
+            <li class="flex items-start gap-2"><i class="fas fa-check text-neon-blue mt-1 text-xs"></i> Are effect sizes discussed, not only p-values?</li>
+          </ul>
+        </div>
+
+        <p>
+          If one of these five issues sounds familiar because you are preparing a submission, answering reviewers, or starting a new project and want to build the analysis on solid ground, Probabilityχ offers a free 30-minute technical consultation.
+        </p>
+
+        <p>
+          No sales pitch. Just a technical discussion about your data, your design, and your questions.
+        </p>
+
+      </div>
+
+      <div class="mt-16 p-8 border border-neon-blue/30 bg-accent-gray/20 text-center">
+        <p class="text-gray-300 mb-6">
+          Preparing a manuscript or answering statistical reviewer comments?<br>
+          Let's look at the design before the statistics become a problem.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="https://calendar.app.google/AYwCHRBRc9BodmAj6" target="_blank" rel="noopener" class="inline-block px-8 py-4 bg-neon-blue text-navy font-medium hover:bg-neon-blue-dark transition-colors duration-300 hover-glow">
+            Book a free 30-min call
+          </a>
+          <a href="YOUTUBE_LINK_PLACEHOLDER" target="_blank" rel="noopener" class="inline-block px-8 py-4 neon-border text-neon-blue font-medium hover:bg-neon-blue hover:text-navy transition-all duration-300">
+            Watch the video
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-10">
+        <a href="index.html" class="text-gray-500 hover:text-neon-blue transition-colors font-mono text-sm">
+          ← Back to blog
+        </a>
+      </div>
+
+    </article>
+  </main>
+
+  <footer class="relative z-10 border-t border-gray-800">
+    <div class="container mx-auto px-6 py-12">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <span class="text-2xl font-semibold">Probability<span class="text-neon-blue">χ</span></span>
+          <p class="text-gray-400 text-sm mt-2">Scientific consulting | Quantitative biology</p>
+        </div>
+        <div class="text-gray-400 text-sm text-right">
+          <a href="../index.html" class="hover:text-neon-blue transition-colors">← Back to main site</a>
+          <p class="mt-2">© 2026 Probabilityχ. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
